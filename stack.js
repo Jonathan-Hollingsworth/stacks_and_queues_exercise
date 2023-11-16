@@ -40,7 +40,12 @@ class Stack {
 
     let popped = this.first
 
-    this.first = this.first.next
+    if (this.size === 1) {
+      this.first = null
+      this.last = null
+    } else {
+      this.first = this.first.next
+    }
 
     this.size -= 1
     return popped.val
