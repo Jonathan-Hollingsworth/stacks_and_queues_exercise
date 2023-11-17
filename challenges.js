@@ -91,17 +91,23 @@ function survivor(maxNum, skip) {
 
   let current = group.head;
   while (group.length > 1) {
-    for (let i = 0; i < skip - 1; i++) {
+    for (let i = 1; i < skip - 1; i++) {
       current = current.next;
+      console.log(current)
     }
     // remove the 'skip'th node
     current.next = current.next.next;
-    if (group.tail === current.next) {
+    if (current.next === group.head) { // Adjusting head if necessary
+      group.head = current.next;
+    }
+    if (current.next === group.tail) { // Adjusting tail if necessary
       group.tail = current;
     }
+    current = current.next; // Move to the next person
     group.length -= 1;
+    console.log(group)
   }
-  return group.head.val;
+  return current.val;
 }
 
 function polishCalculator(mathStr) {
@@ -114,20 +120,23 @@ function polishCalculator(mathStr) {
     } else {
       let rightOperand = stack.pop();
       let leftOperand = stack.pop();
+      let result
       switch (token) {
         case '+':
-          stack.push(leftOperand + rightOperand);
+          result = (leftOperand + rightOperand);
           break;
         case '-':
-          stack.push(leftOperand - rightOperand);
+          result = (leftOperand - rightOperand);
           break;
         case '*':
-          stack.push(leftOperand * rightOperand);
+          result = (leftOperand * rightOperand);
           break;
         case '/':
-          stack.push(leftOperand / rightOperand);
+          result = (leftOperand / rightOperand);
           break;
       }
+      console.log(`${leftOperand} ${token} ${rightOperand} = ${result}`);
+      stack.push(result);
     }
   }
 
