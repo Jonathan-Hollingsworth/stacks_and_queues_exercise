@@ -95,5 +95,5 @@ function survivor(maxNum, skip) {
 }
 
 function polishCalculator(mathStr) {
-
+  //
 }
