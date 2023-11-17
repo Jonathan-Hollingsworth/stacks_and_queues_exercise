@@ -89,11 +89,47 @@ function survivor(maxNum, skip) {
   }
   group.tail.next = group.head
 
-  while (group.length > 0) {
-    //
+  let current = group.head;
+  while (group.length > 1) {
+    for (let i = 0; i < skip - 1; i++) {
+      current = current.next;
+    }
+    // remove the 'skip'th node
+    current.next = current.next.next;
+    if (group.tail === current.next) {
+      group.tail = current;
+    }
+    group.length -= 1;
   }
+  return group.head.val;
 }
 
 function polishCalculator(mathStr) {
-  //
+  let tokens = mathStr.split(" ");
+  let stack = new Stack();
+
+  for (let token of tokens.reverse()) {
+    if (!isNaN(parseFloat(token))) {
+      stack.push(parseFloat(token));
+    } else {
+      let rightOperand = stack.pop();
+      let leftOperand = stack.pop();
+      switch (token) {
+        case '+':
+          stack.push(leftOperand + rightOperand);
+          break;
+        case '-':
+          stack.push(leftOperand - rightOperand);
+          break;
+        case '*':
+          stack.push(leftOperand * rightOperand);
+          break;
+        case '/':
+          stack.push(leftOperand / rightOperand);
+          break;
+      }
+    }
+  }
+
+  return stack.pop();
 }
