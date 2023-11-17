@@ -172,14 +172,7 @@ class LinkedList {
   
       while (currentNode !== null) {
         if (currentIdx === idx) {
-          if (currentNode === this.tail) {
-            prevNode.next = null
-            this.tail = prevNode
-          } else if (currentNode === this.head) {
-            this.head = currentNode.next
-          } else {
-            prevNode.next = currentNode.next
-          }
+          prevNode.next = currentNode.next
           this.length -= 1
           return
         } else {
